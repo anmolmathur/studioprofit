@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Profitability Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      background: #fdfdfd;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #00a86b;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      background: #e0ffe0;
+      padding: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Studio Profitability Calculator</h2>
+  <form id="calcForm" action="https://formsubmit.co/studiocalculator@anmolmathur.com" method="POST">
+    <label>Email <span style="color:red">*</span></label>
+    <input type="email" id="email" name = "email" required />
+    <!--
+    <label>Full Name <span style="color:red">*</span></label> 
+    <input type="text" name="name" placeholder="Full Name" required> 
+    <input type="email" id="email" name = "email" hidden /> -->
+    
+    <label>Phone Number <span style="color:red">*</span></label>
+    <input type="tel" id="phone" required />
+
+    <label>Sessions Per Day</label>
+    <input type="number" id="sessionsPerDay" required />
+
+    <label>Days Per Month</label>
+    <input type="number" id="daysPerMonth" required />
+
+    <label>Rate Per Session (₹)</label>
+    <input type="number" id="ratePerSession" required />
+
+    <h3>Monthly Costs</h3>
+    <label>Rent</label>
+    <input type="number" id="rent" />
+
+    <label>Instructor Salaries</label>
+    <input type="number" id="salaries" />
+
+    <label>Equipment</label>
+    <input type="number" id="equipment" />
+
+    <label>Utilities</label>
+    <input type="number" id="utilities" />
+
+    <label>Marketing</label>
+    <input type="number" id="marketing" />
+
+    <label>Admin / Software</label>
+    <input type="number" id="admin" />
+
+    <label>Miscellaneous</label>
+    <input type="number" id="misc" />
+    <!--
+    <textarea placeholder="Your Message" name="emailtext" rows="10" hidden></textarea> -->
+
+    <button type="submit">Calculate Profit</button>
+  </form>
+
+  <div class="result" id="resultBox"></div>
+
+  <script>
+    //document.getElementById("calcForm").addEventListener("submit", function (e) {
+      
+    document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('calcForm');
+
+    form.addEventListener('submit', async function (e) {  
+        e.preventDefault();
+
+      const sessions = +document.getElementById("sessionsPerDay").value;
+      const days = +document.getElementById("daysPerMonth").value;
+      const rate = +document.getElementById("ratePerSession").value;
+
+      const rent = +document.getElementById("rent").value || 0;
+      const salaries = +document.getElementById("salaries").value || 0;
+      const equipment = +document.getElementById("equipment").value || 0;
+      const utilities = +document.getElementById("utilities").value || 0;
+      const marketing = +document.getElementById("marketing").value || 0;
+      const admin = +document.getElementById("admin").value || 0;
+      const misc = +document.getElementById("misc").value || 0;
+
+      const revenue = sessions * days * rate;
+      const totalCost = rent + salaries + equipment + utilities + marketing + admin + misc;
+      const profit = revenue - totalCost;
+
+      const resultBox = document.getElementById("resultBox");
+      const emailmessage = `
+        <strong>Estimated Monthly Revenue:</strong> ₹${revenue.toLocaleString()}<br />
+        <strong>Total Monthly Cost:</strong> ₹${totalCost.toLocaleString()}<br />
+        <strong>Estimated Profit:</strong> ₹${profit.toLocaleString()}<br />
+        <br />
+        Thank you! One of our team members will contact you shortly. <br />
+        <a href="https://wa.me/919833213974" target="_blank">Click here to book a consultation on WhatsApp</a>
+      `
+      resultBox.innerHTML = emailmessage;
+      //document.getElementById("emailtext").value = resultBox.innerHTML;
+      resultBox.style.display = "block";
+
+      // 1️⃣ Send to FormSubmit (Email delivery)
+      const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
+
+      try {
+        // Send to FormSubmit (email)
+        const emailResponse = await fetch(formSubmitURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dataObject)
+        });
+
+        
+
+        if (emailResponse.ok) {
+          alert('Submitted successfully!');
+          form.reset();
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        alert('Something went wrong!');
+      }
+
+
+    });
+    
+    });
+
+    
+  </script>
+
+
+
+</body>
+</html>
