@@ -87,7 +87,7 @@
     <input type="number" id="misc" />
     
     <textarea placeholder="Your Message" name="message" rows="10" hidden></textarea>
-
+    
     <button type="submit">Calculate Profit</button>
   </form>
 
@@ -143,8 +143,8 @@
         const emailResponse = await fetch(formSubmitURL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          //body: JSON.stringify(dataObject)
-          body: emailmessage
+          body: JSON.stringify(dataObject)
+          
         });
 
         
