@@ -99,7 +99,6 @@
     document.addEventListener('DOMContentLoaded', function () {
     
     const form = document.getElementById('calcForm'); 
-    alert("Form loaded", form);
 
     form.addEventListener('submit', async function (e) {  
       e.preventDefault();
@@ -135,7 +134,7 @@
       resultBox.innerHTML = emailmessage;
       //document.getElementById("emailtext").value = resultBox.innerHTML;
       resultBox.style.display = "block";
-      document.getElementById("message").value = emailmessage;
+      
       // 1️⃣ Send to FormSubmit (Email delivery)
       const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
 
