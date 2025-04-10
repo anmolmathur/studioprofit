@@ -94,7 +94,7 @@
   <div class="result" id="resultBox"></div>
 
   <script>
-    //document.getElementById("calcForm").addEventListener("submit", function (e) {
+    
       
     document.addEventListener('DOMContentLoaded', function () {
     
@@ -144,14 +144,8 @@
         const emailResponse = await fetch(formSubmitURL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: dataObject.email,
-            phone: dataObject.phone,
-            message: emailmessage
-          })
+          body: JSON.stringify(dataObject)
         });
-
-        
 
         if (emailResponse.ok) {
           alert('Submitted successfully!');
