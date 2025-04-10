@@ -86,7 +86,7 @@
     <label>Miscellaneous</label>
     <input type="number" id="misc" />
     
-    <textarea placeholder="Your Message" name="emailtext" rows="10" hidden></textarea>
+    <textarea placeholder="Your Message" name="message" rows="10" hidden></textarea>
 
     <button type="submit">Calculate Profit</button>
   </form>
@@ -134,7 +134,7 @@
       resultBox.innerHTML = emailmessage;
       //document.getElementById("emailtext").value = resultBox.innerHTML;
       resultBox.style.display = "block";
-      document.getElementById("emailtext").value = emailmessage;
+      document.getElementById("message").value = emailmessage;
       // 1️⃣ Send to FormSubmit (Email delivery)
       const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
 
