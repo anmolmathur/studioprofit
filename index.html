@@ -44,58 +44,67 @@
 </head>
 <body>
   <h2>Studio Profitability Calculator</h2>
+
   <form id="calcForm" action="https://formsubmit.co/studiocalculator@anmolmathur.com" method="POST">
+    <input type="hidden" name="_captcha" value="false"> <!-- optional: disable FormSubmit's captcha -->
     <label>Email <span style="color:red">*</span></label>
     <input type="email" id="email" name = "email" required />
-    <!--
-    <label>Full Name <span style="color:red">*</span></label> 
-    <input type="text" name="name" placeholder="Full Name" required> 
-    <input type="email" id="email" name = "email" hidden /> -->
+  
     
     <label>Phone Number <span style="color:red">*</span></label>
-    <input type="tel" id="phone" required />
+    <input type="tel" name = "phone" id="phone" required />
 
     <label>Sessions Per Day</label>
-    <input type="number" id="sessionsPerDay" required />
+    <input type="number" name = "sessionsPerDay" id="sessionsPerDay" required />
 
     <label>Days Per Month</label>
-    <input type="number" id="daysPerMonth" required />
+    <input type="number" name = "daysPerMonth" id="daysPerMonth" required />
 
     <label>Rate Per Session (₹)</label>
-    <input type="number" id="ratePerSession" required />
+    <input type="number" name = "ratePerSession" id="ratePerSession" required />
 
     <h3>Monthly Costs</h3>
     <label>Rent</label>
-    <input type="number" id="rent" />
+    <input type="number" name = "rent" id="rent" />
 
     <label>Instructor Salaries</label>
-    <input type="number" id="salaries" />
+    <input type="number" name="salaries" id="salaries" />
 
     <label>Equipment</label>
-    <input type="number" id="equipment" />
+    <input type="number" name="equipment" id="equipment" />
 
     <label>Utilities</label>
-    <input type="number" id="utilities" />
+    <input type="number" name="utilities" id="utilities" />
 
     <label>Marketing</label>
-    <input type="number" id="marketing" />
+    <input type="number" name="marketing" id="marketing" />
 
     <label>Admin / Software</label>
-    <input type="number" id="admin" />
+    <input type="number" name="admin" id="admin" />
 
     <label>Miscellaneous</label>
-    <input type="number" id="misc" />
-    <!--
-    <textarea placeholder="Your Message" name="emailtext" rows="10" hidden></textarea> -->
-
+    <input type="number" name="misc" id="misc" />
+    
+    <input type="hidden" name="_subject" value="New Studio Profitability Calculation Request" />
+    <input type="hidden" name="final_calculation" id="final_calculation" />
+    <input type="hidden" name="_cc" value="gaurav.mashruwala@gmail.com" /> 
     <button type="submit">Calculate Profit</button>
   </form>
 
   <div class="result" id="resultBox"></div>
 
   <script>
-    document.getElementById("calcForm").addEventListener("submit", function (e) {
+    
+      
+    document.addEventListener('DOMContentLoaded', function () {
+    
+    const form = document.getElementById('calcForm'); 
+
+    form.addEventListener('submit', async function (e) {  
       e.preventDefault();
+
+      const formData = new FormData(form);
+      const dataObject = Object.fromEntries(formData.entries());
 
       const sessions = +document.getElementById("sessionsPerDay").value;
       const days = +document.getElementById("daysPerMonth").value;
@@ -114,17 +123,51 @@
       const profit = revenue - totalCost;
 
       const resultBox = document.getElementById("resultBox");
-      resultBox.innerHTML = `
+      const emailmessage = `
         <strong>Estimated Monthly Revenue:</strong> ₹${revenue.toLocaleString()}<br />
         <strong>Total Monthly Cost:</strong> ₹${totalCost.toLocaleString()}<br />
         <strong>Estimated Profit:</strong> ₹${profit.toLocaleString()}<br />
         <br />
         Thank you! One of our team members will contact you shortly. <br />
         <a href="https://wa.me/919833213974" target="_blank">Click here to book a consultation on WhatsApp</a>
-      `;
-      //document.getElementById("emailtext").value = resultBox.innerHTML;
+      `
+      resultBox.innerHTML = emailmessage;
+  
+      
       resultBox.style.display = "block";
+      document.getElementById("final_calculation").value = emailmessage; // to send the final calculations via email
+      //alert(document.getElementById("final_calculation").value);
+      // 1️⃣ Send to FormSubmit (Email delivery)
+      const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
+
+      try {
+        // Send to FormSubmit (email)
+        const emailResponse = await fetch(formSubmitURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dataObject)
+        });
+
+        if (emailResponse.ok) {
+          alert('Submitted successfully!');
+          //form.reset();
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        alert('Something went wrong!');
+      }
+
+
     });
+    
+    });
+
+    
   </script>
+
+
+
 </body>
 </html>
