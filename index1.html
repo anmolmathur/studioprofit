@@ -132,10 +132,11 @@
         <a href="https://wa.me/919833213974" target="_blank">Click here to book a consultation on WhatsApp</a>
       `
       resultBox.innerHTML = emailmessage;
+  
       
       resultBox.style.display = "block";
       document.getElementById("final_calculation").value = emailmessage; // to send the final calculations via email
-      
+      alert(document.getElementById("final_calculation").value);
       // 1️⃣ Send to FormSubmit (Email delivery)
       const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
 
