@@ -44,13 +44,11 @@
 </head>
 <body>
   <h2>Studio Profitability Calculator</h2>
-  <form id="calcForm" action="https://formsubmit.co/studiocalculator@anmolmathur.com" method="POST">
+  <form id="calcForm" method="POST">
+    <input type="hidden" name="_captcha" value="false"> <!-- optional: disable FormSubmit's captcha -->
     <label>Email <span style="color:red">*</span></label>
     <input type="email" id="email" name = "email" required />
-    <!--
-    <label>Full Name <span style="color:red">*</span></label> 
-    <input type="text" name="name" placeholder="Full Name" required> 
-    <input type="email" id="email" name = "email" hidden /> -->
+  
     
     <label>Phone Number <span style="color:red">*</span></label>
     <input type="tel" id="phone" required />
@@ -95,9 +93,10 @@
 
   <script>
     //document.getElementById("calcForm").addEventListener("submit", function (e) {
-      
+    
     document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('calcForm');
+      
+    const form = document.getElementById('calcForm');  
 
     form.addEventListener('submit', async function (e) {  
         e.preventDefault();
