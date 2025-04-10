@@ -47,9 +47,11 @@
   <form id="calcForm" method="POST">
     <input type="hidden" name="_captcha" value="false"> <!-- optional: disable FormSubmit's captcha -->
     <label>Email <span style="color:red">*</span></label>
-    <input type="email" id="email" name = "email" required />
-  
+    <input type="email" id="email" name="email" required />
     
+    <label>Full Name <span style="color:red">*</span></label>
+    <input type="text" id="fullname" name="name" required />
+
     <label>Phone Number <span style="color:red">*</span></label>
     <input type="tel" id="phone" required />
 
@@ -83,8 +85,8 @@
 
     <label>Miscellaneous</label>
     <input type="number" id="misc" />
-    <!--
-    <textarea placeholder="Your Message" name="emailtext" rows="10" hidden></textarea> -->
+    
+    <textarea placeholder="Your Message" name="emailtext" rows="10" hidden></textarea>
 
     <button type="submit">Calculate Profit</button>
   </form>
@@ -132,7 +134,7 @@
       resultBox.innerHTML = emailmessage;
       //document.getElementById("emailtext").value = resultBox.innerHTML;
       resultBox.style.display = "block";
-
+      document.getElementById("emailtext").value = emailmessage;
       // 1️⃣ Send to FormSubmit (Email delivery)
       const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
 
@@ -141,7 +143,8 @@
         const emailResponse = await fetch(formSubmitURL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dataObject)
+          //body: JSON.stringify(dataObject)
+          body: emailmessage
         });
 
         
