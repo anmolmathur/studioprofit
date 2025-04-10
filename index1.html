@@ -86,8 +86,8 @@
     <input type="number" name="misc" id="misc" />
     
     <input type="hidden" name="_subject" value="New Studio Profitability Calculation Request" />
-    <!-- <input type="hidden" name="_next" value="https://anmolmathur.github.io/studioprofit/index1.html"> -->
-    <input type="hidden" name="_cc" value="anmolm@gmail.com"> 
+    <input type="hidden" name="final_calculation" value="0" />
+    <input type="hidden" name="_cc" value="gaurav.mashruwala@gmail.com" /> 
     <button type="submit">Calculate Profit</button>
   </form>
 
@@ -132,8 +132,9 @@
         <a href="https://wa.me/919833213974" target="_blank">Click here to book a consultation on WhatsApp</a>
       `
       resultBox.innerHTML = emailmessage;
-      //document.getElementById("emailtext").value = resultBox.innerHTML;
+      
       resultBox.style.display = "block";
+      document.getElementById("final_calculation").value = emailmessage; // to send the final calculations via email
       
       // 1️⃣ Send to FormSubmit (Email delivery)
       const formSubmitURL = 'https://formsubmit.co/ajax/studiocalculator@anmolmathur.com';
