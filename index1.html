@@ -140,8 +140,11 @@
         const emailResponse = await fetch(formSubmitURL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dataObject)
-          
+          body: JSON.stringify({
+            email: dataObject.email,
+            phone: dataObject.phone,
+            message: emailmessage
+          })
         });
 
         
